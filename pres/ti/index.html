@@ -225,19 +225,20 @@ void processMoves(Board *board, Move *moves, int *order) {
 
 # MSP430 - Frequency Measure - Main Code
 ```asm
-        bic.b   #RSEL0+RSEL1+RSEL2+RSEL3, &BCSCTL1      ; Configure Timer A Clock
+        bic.b   #RSEL0+RSEL1+RSEL2+RSEL3, &BCSCTL1      ; Configure oscillator
         bis.b   #DCO2+DCO1+DCO0, &DCOCTL
         bis.b   #DIVS_2, &BCSCTL2
-        bis.w   #ID_3+TASSEL_2+MC_2, &TA0CTL
-                                                        ; Output SMCLK
+
+        bis.w   #ID_3+TASSEL_2+MC_2, &TA0CTL            ; Configure Timer A
+
         bis.b   #BIT4, &P1DIR
-        bis.b   #BIT1+BIT4, &P1SEL
-                                                        ; Confgure CCR0
-        bis.w   #CM_1+CCIS_0+CAP+CCIE, &TA0CCTL0
+        bis.b   #BIT1+BIT4, &P1SEL                      ; Configure sampling pin
+
+        bis.w   #CM_1+CCIS_0+CAP+CCIE, &TA0CCTL0        ; Configure CCR0
 
         clr.w   R13
         bis.w   #BIT0, R14
-        bis.w   #GIE, SR
+        bis.w   #GIE, SR                                ; Enable interrupts
 loop:   jmp loop
 ```
 
@@ -246,7 +247,7 @@ loop:   jmp loop
 # MSP430 - Frequency Measure - Interrupt Handler
 ```asm
 Handler:
-        bic.w   #CCIFG, &TA0CCTL0
+        bic.w   #CCIFG, &TA0CCTL0                       ; Clear interrupt flag
         xor.w   #BIT0, R14
         bit.w   #BIT0, R14
         jnz else
@@ -256,7 +257,6 @@ else:
         mov.w   &TACCR0, R12                            ; Second measurement
         sub.w   R13, R12
         mov.w   R12, &period                            ; Store the difference
-        bic.w   #CCIFG, &TA0CCTL0
         reti
 ...
 .sect       ".int09"
