@@ -224,7 +224,7 @@ void processMoves(Board *board, Move *moves, int *order) {
 ---
 
 # MSP430 - Frequency Measure - Main Code
-```asm
+```armasm
         bic.b   #RSEL0+RSEL1+RSEL2+RSEL3, &BCSCTL1      ; Configure oscillator
         bis.b   #DCO2+DCO1+DCO0, &DCOCTL
         bis.b   #DIVS_2, &BCSCTL2
@@ -245,7 +245,7 @@ loop:   jmp loop
 ---
 
 # MSP430 - Frequency Measure - Interrupt Handler
-```asm
+```armasm
 Handler:
         bic.w   #CCIFG, &TA0CCTL0                       ; Clear interrupt flag
         xor.w   #BIT0, R14
