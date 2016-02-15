@@ -34,6 +34,8 @@ Introduction Presentation
 
 - Third year undergrad at The Ohio State University
 
+- Electrical and Computer Engineering Major with Computer Engineering Specialization
+
 - Interested in embedded systems, hardware/software engineering
 
 - Proficient in C, C++, Go
@@ -50,7 +52,7 @@ Introduction Presentation
 
 2. BugsWorld
 
-3. Microcontrollers Class
+3. MSP430 Class
 
 4. Personal Library
 
@@ -58,24 +60,54 @@ Introduction Presentation
 
 # U-Root
 
+- Embed Go toolchain, kernel, and Coreboot in BIOS chip
+
+- Compile Coreboot for development board
+
+- Configure tiny (~300k) Linux kernel
+
+- Create initramfs from U-Root source
+
+- Chain all three and flash a BIOS chip
+
+- Gained experience working with and debugging firmware and embedded code
+
+- GitHub page: https://github.com/rminnich/u-root
+
 ---
 
 # BugsWorld
-GNU Autotools
+
+- Based on a school project
+
+- Bugs controlled by simple bytecode programs
+
+- World simulation, program interpretation, display
+
+- Future enhancements
+
+  - Assembler/Compiler
+
+  - Evolutionary algorithm
+
+---
+
+# BugsWorld - Structure
+
 ```
+├── Makefile.am
 ├── configure.ac
 ├── examples
 │   ├── infect.bo
 │   └── rover.bo
-├── Makefile.am
 └── src
+    ├── Makefile.am
     ├── board.c
     ├── board.h
     ├── display.c
     ├── display.h
     ├── interpreter.c
     ├── interpreter.h
-    ├── Makefile.am
     ├── moves.c
     ├── moves.h
     ├── species.c
@@ -175,15 +207,110 @@ void processMoves(Board *board, Move *moves, int *order) {
 
 #BugsWorld - Demo
 
-.center[<video controls src=bl.webm>]
+TODO: Rerecord
+
+.center[<video loop autoplay src=bl.webm>]
 
 ---
 
-# Microcontrollers Class
+# MSP430 Class
+
+- MSP430 Assembly
+
+- Projects using various integrated components
+
+- Timer, interrupts, PWM, ADC, GPIO
+
+- Measuring frequency of a square wave
+
+---
+
+# MSP430 - Frequency Measure - Main Code
+```asm
+        bic.b   #RSEL0+RSEL1+RSEL2+RSEL3, &BCSCTL1      ; Configure Timer A Clock
+        bis.b   #DCO2+DCO1+DCO0, &DCOCTL
+        bis.b   #DIVS_2, &BCSCTL2
+        bis.w   #ID_3+TASSEL_2+MC_2, &TA0CTL
+                                                        ; Output SMCLK
+        bis.b   #BIT4, &P1DIR
+        bis.b   #BIT1+BIT4, &P1SEL
+                                                        ; Confgure CCR0
+        bis.w   #CM_1+CCIS_0+CAP+CCIE, &TA0CCTL0
+
+        clr.w   R13
+        bis.w   #BIT0, R14
+        bis.w   #GIE, SR
+loop:   jmp loop
+```
+
+---
+
+# MSP430 - Frequency Measure - Interrupt Handler
+```asm
+Handler:
+        bic.w   #CCIFG, &TA0CCTL0
+        xor.w   #BIT0, R14
+        bit.w   #BIT0, R14
+        jnz else
+        mov.w   &TACCR0, R13                            ; First measurement
+        reti
+else:
+        mov.w   &TACCR0, R12                            ; Second measurement
+        sub.w   R13, R12
+        mov.w   R12, &period                            ; Store the difference
+        bic.w   #CCIFG, &TA0CCTL0
+        reti
+...
+.sect       ".int09"
+.short      Handler
+
+```
 
 ---
 
 # Personal Library
+
+- Collection of useful code from other projects
+
+- Still collecting, optimizing, and testing it
+
+- Built with Autotools
+
+- Unit tested with Check framework
+
+---
+
+# Personal Library - Unit Tests
+```c
+#test empty
+  ll *l = ll_make();
+  ll_push_back_int(l, 1);
+  ll_pop_front_int(l);
+  ck_assert(ll_is_empty(l));
+  ll_free(l);
+
+#test retrieve_5
+  ll *l = ll_make();
+  int i;
+  for(i = 0; i < 5; i++) {
+    ll_push_back_int(l, i);
+  }
+  for(i = 0; i < 5; i++) {
+    int data = ll_pop_front_int(l);
+    ck_assert_int_eq(data, i);
+  }
+  ll_free(l);
+
+#test store_1_retrieve_1_x5
+  ll *l = ll_make();
+  int i;
+  for(i = 0; i < 5; i++) {
+    ll_push_back_int(l, i);
+    int data = ll_pop_front_int(l);
+    ck_assert_int_eq(data, i);
+  }
+  ll_free(l);
+```
 
 ---
 
