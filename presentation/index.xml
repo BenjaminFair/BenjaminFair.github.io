@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Presentations on Benjamin Fair</title>
+    <link>http://www.benjaminfair.com/presentation/</link>
+    <description>Recent content in Presentations on Benjamin Fair</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2016 Benjamin Fair</copyright>
+    <lastBuildDate>Thu, 11 Aug 2016 02:47:52 -0400</lastBuildDate>
+    <atom:link href="http://www.benjaminfair.com/presentation/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>TI Interview</title>
+      <link>http://www.benjaminfair.com/presentation/ti-interview/</link>
+      <pubDate>Thu, 11 Aug 2016 02:47:52 -0400</pubDate>
+      
+      <guid>http://www.benjaminfair.com/presentation/ti-interview/</guid>
+      <description>&lt;p&gt;I made this presentation for an interview at Texas Instruments.&lt;/p&gt;
+</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -7,8 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2016 Benjamin Fair</copyright>
-    <lastBuildDate>Thu, 11 Aug 2016 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 11 Aug 2016 02:47:52 -0400</lastBuildDate>
     <atom:link href="http://www.benjaminfair.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>TI Interview</title>
+      <link>http://www.benjaminfair.com/presentation/ti-interview/</link>
+      <pubDate>Thu, 11 Aug 2016 02:47:52 -0400</pubDate>
+      
+      <guid>http://www.benjaminfair.com/presentation/ti-interview/</guid>
+      <description>&lt;p&gt;I made this presentation for an interview at Texas Instruments.&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>about</title>
@@ -21,6 +31,12 @@
 &lt;h1 id=&#34;biography&#34;&gt;Biography&lt;/h1&gt;
 
 &lt;p&gt;This is where I would put information about myself.&lt;/p&gt;
+
+&lt;h1 id=&#34;resume&#34;&gt;Resume&lt;/h1&gt;
+
+&lt;p&gt;Download: &lt;a href=&#34;http://www.benjaminfair.com/resume/Fair-Benjamin.pdf&#34;&gt;pdf&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Summary here&lt;/p&gt;
 </description>
     </item>
     
