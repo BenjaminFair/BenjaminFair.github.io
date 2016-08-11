@@ -9,3 +9,9 @@ weight = 0
 # Biography
 
 This is where I would put information about myself.
+
+# Resume
+
+Download: [pdf](/resume/Fair-Benjamin.pdf)
+
+Summary here

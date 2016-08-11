@@ -148,3 +148,8 @@ googleAnalytics = ""
   name = "Contact"
   url = "#contact"
   weight = 6
+
+[[menu.main]]
+  name = "Presentations"
+  url = "/presentation"
+  weight = 6
